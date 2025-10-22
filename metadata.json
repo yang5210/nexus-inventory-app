@@ -1,0 +1,5 @@
+{
+  "name": "Nexus",
+  "description": "一个用于记录和管理账号库存及发货情况的Web应用。支持分组、自动填充、一键复制和发货/退货操作，数据将存储在您的浏览器中。",
+  "requestFramePermissions": []
+}
