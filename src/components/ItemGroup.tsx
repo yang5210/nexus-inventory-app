@@ -16,7 +16,10 @@ interface ItemGroupProps<T extends Group> {
   isShippedView: boolean;
 }
 
-const ItemGroup = <T extends Group>({ group, setGroups, onAddItem, onEditItem, onShipItem, onReturnItem, isShippedView }: ItemGroupProps<T>): React.ReactElement => {
+// FIX: To use React.memo with a generic component, we define the component first,
+// then wrap it with React.memo and cast it to preserve the generic type. This
+// resolves an issue where TypeScript would not recognize the memoized component as generic.
+function ItemGroup<T extends Group>({ group, setGroups, onAddItem, onEditItem, onShipItem, onReturnItem, isShippedView }: ItemGroupProps<T>) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditingName, setIsEditingName] = useState(false);
   const [groupNameInput, setGroupNameInput] = useState(group.date);
@@ -153,6 +156,10 @@ const ItemGroup = <T extends Group>({ group, setGroups, onAddItem, onEditItem, o
       />
     </div>
   );
-};
+}
 
-export default ItemGroup;
+// FIX: Update type cast to include `displayName` to resolve property assignment error.
+const MemoizedItemGroup = React.memo(ItemGroup) as typeof ItemGroup & { displayName?: string };
+MemoizedItemGroup.displayName = 'ItemGroup';
+
+export default MemoizedItemGroup;

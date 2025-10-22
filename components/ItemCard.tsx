@@ -35,26 +35,45 @@ const ItemCard: React.FC<ItemCardProps> = ({ item, onEdit, onDelete, onShip, onR
   
   return (
     <div className="p-4 relative">
-      <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-base">
-        <div className="flex items-center">
-            <span className="font-semibold w-16 text-gray-500 dark:text-gray-400">账号:</span>
-            <span className="text-gray-800 dark:text-gray-100 break-all">{item.account}@qq.com</span>
+      <style>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
+      <div className="flex flex-col space-y-2 text-base">
+        <div className="grid grid-cols-[1fr_auto] gap-x-4 gap-y-2">
+            {/* Row 1 */}
+            <div className="flex items-baseline min-w-0">
+                <span className="font-semibold text-gray-500 dark:text-gray-400 w-16 shrink-0">账号:</span>
+                <div className="min-w-0 flex-1 overflow-x-auto whitespace-nowrap scrollbar-hide">
+                    <span className="text-gray-800 dark:text-gray-100">{item.account}@qq.com</span>
+                </div>
+            </div>
+            <div className="flex items-baseline">
+                <span className="font-semibold text-gray-500 dark:text-gray-400 w-16 shrink-0">次数:</span>
+                <span className="text-gray-800 dark:text-gray-100">{item.usageCount}</span>
+            </div>
+            
+            {/* Row 2 */}
+            <div className="flex items-baseline min-w-0">
+                <span className="font-semibold text-gray-500 dark:text-gray-400 w-16 shrink-0">密码:</span>
+                <div className="min-w-0 flex-1 overflow-x-auto whitespace-nowrap scrollbar-hide">
+                     <span className="text-gray-800 dark:text-gray-100">{item.password || item.account}</span>
+                </div>
+            </div>
+            <div className="flex items-baseline">
+                <span className="font-semibold text-gray-500 dark:text-gray-400 w-16 shrink-0">邀请码:</span>
+                <span className="text-gray-800 dark:text-gray-100">{item.inviteCode}</span>
+            </div>
         </div>
-         <div className="flex items-center">
-            <span className="font-semibold w-16 text-gray-500 dark:text-gray-400">密码:</span>
-            <span className="text-gray-800 dark:text-gray-100">{item.password || item.account}</span>
-        </div>
-        <div className="flex items-center">
-            <span className="font-semibold w-16 text-gray-500 dark:text-gray-400">邀请码:</span>
-            <span className="text-gray-800 dark:text-gray-100">{item.inviteCode}</span>
-        </div>
-        <div className="flex items-center">
-            <span className="font-semibold w-16 text-gray-500 dark:text-gray-400">次数:</span>
-            <span className="text-gray-800 dark:text-gray-100">{item.usageCount}</span>
-        </div>
-        <div className="col-span-2 flex items-start">
-            <span className="font-semibold w-16 text-gray-500 dark:text-gray-400 shrink-0">备注:</span>
-            <span className="text-gray-800 dark:text-gray-100 break-words">{item.remarks}</span>
+
+        <div className="flex items-start">
+            <span className="font-semibold text-gray-500 dark:text-gray-400 w-16 shrink-0">备注:</span>
+            <span className="text-gray-800 dark:text-gray-100 break-words min-w-0">{item.remarks}</span>
         </div>
       </div>
       <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-200 dark:border-gray-700">
